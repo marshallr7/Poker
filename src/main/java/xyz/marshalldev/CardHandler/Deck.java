@@ -5,7 +5,13 @@ import java.util.Collections;
 
 public class Deck {
 
-    ArrayList<Card> deck = new ArrayList<>();
+    ArrayList<Card> deck;
+
+    public Deck() {
+        this.deck = new ArrayList<>();
+        generate();
+        shuffle();
+    }
 
     public void generate() {
         for (int i = 1; i < 14; i++) {
