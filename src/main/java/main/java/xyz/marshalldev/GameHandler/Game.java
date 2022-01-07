@@ -1,8 +1,11 @@
 package main.java.xyz.marshalldev.GameHandler;
 
+import lombok.Data;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 public class Game {
 
     private final int MAX_PLAYERS = 9;
