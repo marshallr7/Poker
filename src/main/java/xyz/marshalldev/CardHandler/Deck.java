@@ -1,6 +1,7 @@
 package main.java.xyz.marshalldev.CardHandler;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Deck {
 
@@ -11,6 +12,10 @@ public class Deck {
             int finalI = i;
             Suit.stream().forEach(suit -> deck.add(new Card(String.valueOf(finalI), suit)));
         }
+    }
+
+    public void shuffle() {
+        Collections.shuffle(this.deck);
     }
 
     @Override
