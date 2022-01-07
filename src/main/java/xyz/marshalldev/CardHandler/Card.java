@@ -29,23 +29,23 @@ public class Card {
     @Override
     public String toString() {
         if (this.value.equals("1")) {
-            return "A" + suit;
+            return "A" + suit.symbol;
         }
 
         if (!isFaceCard(this.value)) {
-            return this.value + suit;
+            return this.value + suit.symbol;
         }
 
         if (this.value.equals("11")) {
-            return "J" + suit;
+            return "J" + suit.symbol;
         }
 
         if (this.value.equals("12")) {
-            return "Q" + suit;
+            return "Q" + suit.symbol;
         }
 
         if (this.value.equals("13")) {
-            return "K" + suit;
+            return "K" + suit.symbol;
         }
         return null;
     }
