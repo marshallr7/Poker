@@ -4,7 +4,6 @@ import main.java.xyz.marshalldev.GameHandler.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Deck {
@@ -28,7 +27,7 @@ public class Deck {
         Collections.shuffle(this.deck);
     }
 
-    public void deal(HashMap<Integer, Player> players) {
+    public void deal(Map<Integer, Player> players) {
         for (Map.Entry<Integer, Player> element : players.entrySet()) {
             element.getValue().getHand().addCard(deck.get(0));
             deck.remove(0);
