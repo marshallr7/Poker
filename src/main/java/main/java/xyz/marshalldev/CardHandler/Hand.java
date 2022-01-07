@@ -8,9 +8,20 @@ import java.util.List;
 @Data
 public class Hand {
 
-    List<Card> cards = new ArrayList<>();
+    List<Card> cards;
+
+    public Hand() {
+         cards = new ArrayList<>();
+    }
 
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    @Override
+    public String toString() {
+        final String[] hand = {""};
+        cards.forEach(card -> hand[0] = hand[0] + card.toString() + " ");
+        return hand[0];
     }
 }
