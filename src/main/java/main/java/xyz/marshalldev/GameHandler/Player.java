@@ -6,6 +6,6 @@ import main.java.xyz.marshalldev.CardHandler.Hand;
 @Data
 public class Player {
     private int balance;
-    private Hand hand;
+    private final Hand hand = new Hand();
 
 }
