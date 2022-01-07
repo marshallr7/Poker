@@ -26,4 +26,31 @@ public class Card {
         this.suit = suit;
     }
 
+    @Override
+    public String toString() {
+        if (this.value.equals("1")) {
+            return "A" + suit;
+        }
+
+        if (!isFaceCard(this.value)) {
+            return this.value + suit;
+        }
+
+        if (this.value.equals("11")) {
+            return "J" + suit;
+        }
+
+        if (this.value.equals("12")) {
+            return "Q" + suit;
+        }
+
+        if (this.value.equals("13")) {
+            return "K" + suit;
+        }
+        return null;
+    }
+
+    private boolean isFaceCard(String value) {
+        return value.equals("11") || value.equals("12") || value.equals("13");
+    }
 }
