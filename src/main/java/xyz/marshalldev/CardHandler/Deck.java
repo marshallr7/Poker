@@ -1,8 +1,9 @@
 package main.java.xyz.marshalldev.CardHandler;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Deck {
 
-    List<Card> deck;
+    ArrayList<Card> deck = new ArrayList<>();
+
 }
