@@ -1,5 +1,8 @@
 package main.java.xyz.marshalldev.CardHandler;
 
+import lombok.Data;
+
+@Data
 public class Card {
 
     String value;
@@ -7,22 +10,6 @@ public class Card {
 
     public Card(String value, Suit suit) {
         this.value = value;
-        this.suit = suit;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Suit getSuit() {
-        return suit;
-    }
-
-    public void setSuit(Suit suit) {
         this.suit = suit;
     }
 
