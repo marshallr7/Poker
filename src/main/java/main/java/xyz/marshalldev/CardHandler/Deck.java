@@ -1,10 +1,7 @@
 package main.java.xyz.marshalldev.CardHandler;
 
-import main.java.xyz.marshalldev.GameHandler.Player;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Map;
 
 public class Deck {
 
@@ -27,15 +24,10 @@ public class Deck {
         Collections.shuffle(this.deck);
     }
 
-    public void deal(Map<Integer, Player> players) {
-        for (Map.Entry<Integer, Player> element : players.entrySet()) {
-            element.getValue().getHand().addCard(deck.get(0));
-            deck.remove(0);
-        }
-        for (Map.Entry<Integer, Player> element : players.entrySet()) {
-            element.getValue().getHand().addCard(deck.get(0));
-            deck.remove(0);
-        }
+    public Card deal() {
+        Card card = deck.get(0);
+        deck.remove(0);
+        return card;
     }
 
     @Override
