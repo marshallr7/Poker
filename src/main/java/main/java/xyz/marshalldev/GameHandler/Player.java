@@ -16,4 +16,8 @@ public class Player {
     private boolean isAllIn() {
         return this.balance == 0 && !folded;
     }
+
+    private boolean isActive() {
+        return this.balance == 0 && !folded;
+    }
 }
