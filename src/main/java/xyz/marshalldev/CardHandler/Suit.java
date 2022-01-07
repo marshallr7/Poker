@@ -1,5 +1,7 @@
 package main.java.xyz.marshalldev.CardHandler;
 
+import java.util.stream.Stream;
+
 public enum Suit {
     SPADE("♠"),
     CLUB("♣"),
@@ -10,6 +12,10 @@ public enum Suit {
 
     Suit(String symbol) {
         this.symbol = symbol;
+    }
+
+    public static Stream<Suit> stream() {
+        return Stream.of(Suit.values());
     }
 
 }
