@@ -1,12 +1,16 @@
 package main.java.xyz.marshalldev.GameHandler;
 
 import lombok.Data;
+import main.java.xyz.marshalldev.CardHandler.Card;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Data
 public class Game {
+
+    List<Card> communityCards;
 
     private final int MAX_PLAYERS = 9;
     private int numPlayers;
