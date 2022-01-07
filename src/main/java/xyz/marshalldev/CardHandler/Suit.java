@@ -1,5 +1,6 @@
 package main.java.xyz.marshalldev.CardHandler;
 
-public class Suit {
+public enum Suit {
+
 
 }
