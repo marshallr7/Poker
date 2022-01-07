@@ -2,6 +2,7 @@ package main.java.xyz.marshalldev.GameHandler;
 
 import lombok.Data;
 import main.java.xyz.marshalldev.CardHandler.Card;
+import main.java.xyz.marshalldev.CardHandler.Deck;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.Map;
 
 @Data
 public class Game {
+
+    private Deck deck;
 
     List<Card> communityCards;
 
@@ -25,4 +28,8 @@ public class Game {
     private int buttonIndex;
 
     private int potValue;
+
+    public void start() {
+
+    }
 }
