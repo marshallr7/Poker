@@ -4,9 +4,9 @@ import java.util.stream.Stream;
 
 public enum Suit {
     SPADE("♠"),
-    CLUB("♣"),
     HEART("♥"),
-    DIAMOND("♦");
+    DIAMOND("♦"),
+    CLUB("♣");
 
     public final String symbol;
 
