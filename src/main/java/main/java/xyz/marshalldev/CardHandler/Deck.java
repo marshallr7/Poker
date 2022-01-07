@@ -1,7 +1,11 @@
 package main.java.xyz.marshalldev.CardHandler;
 
+import main.java.xyz.marshalldev.GameHandler.Player;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Deck {
 
@@ -22,6 +26,17 @@ public class Deck {
 
     public void shuffle() {
         Collections.shuffle(this.deck);
+    }
+
+    public void deal(HashMap<Integer, Player> players) {
+        for (Map.Entry<Integer, Player> element : players.entrySet()) {
+            element.getValue().getHand().addCard(deck.get(0));
+            deck.remove(0);
+        }
+        for (Map.Entry<Integer, Player> element : players.entrySet()) {
+            element.getValue().getHand().addCard(deck.get(0));
+            deck.remove(0);
+        }
     }
 
     @Override
