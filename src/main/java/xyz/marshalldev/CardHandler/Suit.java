@@ -1,4 +1,4 @@
-package main.java.xyz.marshalldev.CardHandler;
+package xyz.marshalldev.CardHandler;
 
 import java.util.stream.Stream;
 

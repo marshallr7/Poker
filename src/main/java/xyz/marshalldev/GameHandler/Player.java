@@ -1,7 +1,7 @@
-package main.java.xyz.marshalldev.GameHandler;
+package xyz.marshalldev.GameHandler;
 
 import lombok.Data;
-import main.java.xyz.marshalldev.CardHandler.Hand;
+import xyz.marshalldev.CardHandler.Hand;
 
 import java.util.Scanner;
 

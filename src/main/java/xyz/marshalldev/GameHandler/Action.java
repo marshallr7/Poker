@@ -1,4 +1,4 @@
-package main.java.xyz.marshalldev.GameHandler;
+package xyz.marshalldev.GameHandler;
 
 public enum Action {
     BET,

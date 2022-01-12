@@ -1,8 +1,8 @@
-package main.java.xyz.marshalldev.GameHandler;
+package xyz.marshalldev.GameHandler;
 
 import lombok.Data;
-import main.java.xyz.marshalldev.CardHandler.Card;
-import main.java.xyz.marshalldev.CardHandler.Deck;
+import xyz.marshalldev.CardHandler.Card;
+import xyz.marshalldev.CardHandler.Deck;
 
 import java.util.HashMap;
 import java.util.List;
