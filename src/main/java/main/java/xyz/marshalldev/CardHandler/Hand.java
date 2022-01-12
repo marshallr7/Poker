@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class Hand {
 
-    List<Card> cards;
+    private final List<Card> cards;
 
     public Hand() {
          cards = new ArrayList<>();
