@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Deck {
 
-    ArrayList<Card> deck;
+    private final ArrayList<Card> deck;
 
     public Deck() {
         this.deck = new ArrayList<>();
@@ -28,6 +28,10 @@ public class Deck {
         Card card = deck.get(0);
         deck.remove(0);
         return card;
+    }
+
+    public int size() {
+        return deck.size();
     }
 
     @Override
