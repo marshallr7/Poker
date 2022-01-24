@@ -8,6 +8,7 @@ public class Pot {
     @Getter
     @Setter
     int value;
+    int amountPerPlayer;
 
     void updatePot(int amount) {
         setValue(amount + getValue());
