@@ -18,6 +18,7 @@ public class Game {
 
     private final int MAX_PLAYERS = 9;
     private int numPlayers;
+    private int activePlayers;
     private final Map<Integer, Player> players = new HashMap<>();
 
     private int startingBalance;
@@ -28,7 +29,14 @@ public class Game {
     private int littleBlindIndex;
     private int buttonIndex;
 
-    public Game() {
+    public Game(int numPlayers, int startingBalance, int buttonIndex, int littleBlindIndex, int bigBlindIndex) {
+        this.numPlayers = numPlayers;
+        this.activePlayers = numPlayers;
+        this.startingBalance = startingBalance;
+        this.buttonIndex = buttonIndex;
+        this.littleBlindIndex = littleBlindIndex;
+        this.bigBlindIndex = bigBlindIndex;
+
         deck = new Deck();
         createPlayers();
         addStartingBalances();
@@ -51,7 +59,6 @@ public class Game {
     private void dealToPlayers() {
         // start at little blind -> big blind -> regular players -> button
         int j = littleBlindIndex;
-        System.out.println(deck);
         for (int i = 0; i < numPlayers*2; i++, j++) {
             if (j == numPlayers) {
                 j = 0;
@@ -63,8 +70,6 @@ public class Game {
                 player.getHand().addCard(deck.deal());
             }
         }
-        System.out.println(deck.toString());
-        System.out.println(players);
     }
 
     private void betting() {
@@ -77,8 +82,12 @@ public class Game {
             Player player = players.get(j);
 
             if (player.isActive()) {
-                player.getAction(j);
-
+                if (activePlayers > 1) {
+                    Action action = player.getAction(j);
+                    betAction(player, action);
+                } else if (activePlayers == 1) {
+                    // player wins hand
+                }
             }
         }
     }
@@ -92,7 +101,7 @@ public class Game {
 //                    player.getAction(player);
                 }
                 if (amount == player.getBalance()) {
-
+                    player.setBalance(0);
                 }
                 break;
             case FOLD:
