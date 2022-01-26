@@ -83,10 +83,13 @@ public class Game {
 
             if (player.isActive()) {
                 if (activePlayers > 1) {
-                    Action action = player.getAction(j);
+                    Action action = Action.getAction(player);
                     betAction(player, action);
                 } else if (activePlayers == 1) {
                     // player wins hand
+                    // give pot
+                    // increment blinds and button
+                    // reset hands
                 }
             }
         }
