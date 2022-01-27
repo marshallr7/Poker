@@ -3,8 +3,9 @@ package xyz.marshalldev.GameHandler;
 import lombok.Data;
 import xyz.marshalldev.CardHandler.Card;
 import xyz.marshalldev.CardHandler.Deck;
-import xyz.marshalldev.GUI;
+import xyz.marshalldev.PlayerHandler.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class Game {
     private Deck deck;
     private Pot pot;
 
-    List<Card> communityCards;
+    List<Card> communityCards = new ArrayList<>();
 
     private final int MAX_PLAYERS = 9;
     private int numPlayers;
@@ -24,11 +25,13 @@ public class Game {
 
     private int startingBalance;
 
-    private int bigBlindValue;
-    private int littleBlindValue;
+    private int bigBlindAmount;
+    private int littleBlindAmount;
     private int bigBlindIndex;
     private int littleBlindIndex;
     private int buttonIndex;
+
+    private int lastBetIndex;
 
     public Game(int numPlayers, int startingBalance, int buttonIndex, int littleBlindIndex, int bigBlindIndex) {
         this.numPlayers = numPlayers;
@@ -37,8 +40,10 @@ public class Game {
         this.buttonIndex = buttonIndex;
         this.littleBlindIndex = littleBlindIndex;
         this.bigBlindIndex = bigBlindIndex;
+        this.lastBetIndex = littleBlindIndex;
 
         deck = new Deck();
+        dealCommunityCards(5);
         createPlayers();
         addStartingBalances();
         dealToPlayers();
@@ -75,6 +80,8 @@ public class Game {
 
     private void betting() {
         int j = littleBlindIndex;
+        // This for loop isn't going to work, if a player raises, it needs to go around for everyone to call
+        // Going to need to use lastBetIndex, which is updated on bet, and have it set i back to zero
         for (int i = 0; i < numPlayers; i++, j++) {
             if (j == numPlayers) {
                 j = 0;
@@ -85,7 +92,7 @@ public class Game {
             if (player.isActive()) {
                 if (activePlayers > 1) {
                     Action action = Action.getAction(player);
-                    betAction(player, action);
+                    Action.betAction(player, action, pot, activePlayers);
                 } else if (activePlayers == 1) {
                     // player wins hand
                     // give pot
@@ -96,39 +103,9 @@ public class Game {
         }
     }
 
-    private void betAction(Player player, Action action) {
-        switch (action) {
-            case BET:
-                int amount = 0;
-
-                try {
-                    amount = Integer.parseInt(GUI.dialogTemplate("How much would you like to bet?", "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance()));
-                } catch (NumberFormatException e) {
-                    betAction(player, action);
-                }
-
-                // If player attempts to bet more than they have
-                if (!(player.getBalance() >= amount)) {
-                    betAction(player, action);
-                    return;
-                }
-                // if player bets full balance
-                if (amount == player.getBalance()) {
-                    player.setBalance(0);
-                    player.setStatus(Action.ALL_IN);
-                }
-                break;
-            case FOLD:
-                player.setStatus(Action.FOLD);
-                this.activePlayers -= 1;
-                break;
-            case CHECK:
-                break;
-            case CALL:
-                //
-                break;
-            case ALL_IN:
-                break;
+    private void dealCommunityCards(int amount) {
+        for (int i = 0; i < amount; i++) {
+            this.communityCards.add(deck.deal());
         }
     }
 }
