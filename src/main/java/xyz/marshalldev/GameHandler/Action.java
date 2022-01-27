@@ -1,6 +1,7 @@
 package xyz.marshalldev.GameHandler;
 
 import xyz.marshalldev.GUI;
+import xyz.marshalldev.PlayerHandler.Player;
 
 public enum Action {
     BET,
@@ -17,6 +18,7 @@ public enum Action {
             "All In"
     };
 
+    // TODO: modify GUI options based on user met requirements
     public static Action getAction(Player player) {
         int result = GUI.buttonTemplate(
                 "What would you like to do?",
@@ -31,7 +33,48 @@ public enum Action {
             case 4 -> Action.ALL_IN;
             default -> getAction(player);
         };
+    }
 
+    public static void betAction(Player player, Action action, Pot pot, int activePlayers) {
+        switch (action) {
+            case BET:
+                int amount = 0;
+
+                // If player doesn't enter a proper integer
+                try {
+                    amount = Integer.parseInt(GUI.dialogTemplate("How much would you like to bet?", "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance()));
+                } catch (NumberFormatException e) {
+                    betAction(player, action, pot, activePlayers);
+                }
+
+                // If player attempts to bet more than they have
+                if (!(player.getBalance() >= amount)) {
+                    betAction(player, action, pot, activePlayers);
+                    return;
+                }
+                // if player bets full balance
+                if (amount == player.getBalance()) {
+                    player.setBalance(0);
+                    player.setStatus(Action.ALL_IN);
+                }
+
+                pot.updatePot(amount);
+                pot.amountPerPlayer += amount;
+                break;
+            case FOLD:
+                player.setStatus(Action.FOLD);
+                activePlayers -= 1;
+                break;
+            case CHECK:
+                break;
+            case CALL:
+                //
+                break;
+            case ALL_IN:
+                break;
+            default:
+                break;
+        }
     }
 }
 
