@@ -99,21 +99,33 @@ public class Game {
     private void betAction(Player player, Action action) {
         switch (action) {
             case BET:
-                GUI.dialogTemplate("Test", "1");
-                int amount = player.getScan().nextInt();
-                if (!(player.getBalance() >= amount)) {
-//                    player.getAction(player);
+                int amount = 0;
+
+                try {
+                    amount = Integer.parseInt(GUI.dialogTemplate("How much would you like to bet?", "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance()));
+                } catch (NumberFormatException e) {
+                    betAction(player, action);
                 }
+
+                // If player attempts to bet more than they have
+                if (!(player.getBalance() >= amount)) {
+                    betAction(player, action);
+                    return;
+                }
+                // if player bets full balance
                 if (amount == player.getBalance()) {
                     player.setBalance(0);
+                    player.setStatus(Action.ALL_IN);
                 }
                 break;
             case FOLD:
                 player.setStatus(Action.FOLD);
+                this.activePlayers -= 1;
                 break;
             case CHECK:
                 break;
             case CALL:
+                //
                 break;
             case ALL_IN:
                 break;
