@@ -1,7 +1,8 @@
-package xyz.marshalldev.GameHandler;
+package xyz.marshalldev.PlayerHandler;
 
 import lombok.Data;
 import xyz.marshalldev.CardHandler.Hand;
+import xyz.marshalldev.GameHandler.Action;
 
 import java.util.Scanner;
 
@@ -18,15 +19,15 @@ public class Player {
     private int currentBet;
     private Action status;
 
-    boolean isAllIn() {
+    public boolean isAllIn() {
         return this.balance == 0 && status != Action.FOLD;
     }
 
-    boolean isActive() {
+    public boolean isActive() {
         return this.balance != 0 && status != Action.FOLD;
     }
 
-    void updateBalance(int amount) {
+    public void updateBalance(int amount) {
         setBalance(getBalance() + amount);
     }
 }
