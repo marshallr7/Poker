@@ -18,7 +18,7 @@ public enum Action {
     };
 
     public static Action getAction(Player player) {
-        int result = GUI.template(
+        int result = GUI.buttonTemplate(
                 "What would you like to do?",
                 "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance(),
                 betActions);
