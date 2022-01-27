@@ -2,6 +2,7 @@ package xyz.marshalldev.GameHandler;
 
 import lombok.Getter;
 import lombok.Setter;
+import xyz.marshalldev.PlayerHandler.Player;
 
 public class Pot {
 
