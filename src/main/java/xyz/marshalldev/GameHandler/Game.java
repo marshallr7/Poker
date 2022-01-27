@@ -3,6 +3,7 @@ package xyz.marshalldev.GameHandler;
 import lombok.Data;
 import xyz.marshalldev.CardHandler.Card;
 import xyz.marshalldev.CardHandler.Deck;
+import xyz.marshalldev.GUI;
 
 import java.util.HashMap;
 import java.util.List;
@@ -98,7 +99,7 @@ public class Game {
     private void betAction(Player player, Action action) {
         switch (action) {
             case BET:
-                System.out.println("How much would you like to bet?");
+                GUI.dialogTemplate("Test", "1");
                 int amount = player.getScan().nextInt();
                 if (!(player.getBalance() >= amount)) {
 //                    player.getAction(player);
@@ -108,8 +109,13 @@ public class Game {
                 }
                 break;
             case FOLD:
+                player.setStatus(Action.FOLD);
                 break;
             case CHECK:
+                break;
+            case CALL:
+                break;
+            case ALL_IN:
                 break;
         }
     }
