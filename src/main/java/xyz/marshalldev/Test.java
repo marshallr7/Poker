@@ -54,6 +54,7 @@ public class Test {
         System.out.println("Trips: " + Rankings.isTrips(tripsTest()));
         System.out.println("Two Pair: " + Rankings.isTwoPair(twoPairTest()));
         System.out.println("Pair: " + Rankings.isPair(pairTest()));
+        System.out.println("High Card: " + Rankings.getHighCard(highCardTest()));
     }
 
     private static List<Card> royalFlushTest() {
@@ -68,7 +69,6 @@ public class Test {
         royalFlushTest.add(new Card(14, Suit.CLUB));
 
         royalFlushTest = sortByRank(royalFlushTest);
-        System.out.println("Royal Flush: " + royalFlushTest.toString());
         return royalFlushTest;
     }
 
@@ -84,7 +84,6 @@ public class Test {
         straightTest.add(new Card(14, Suit.CLUB));
 
         straightTest = sortByRank(straightTest);
-        System.out.println("Straight: " + straightTest.toString());
         return straightTest;
     }
 
@@ -99,7 +98,6 @@ public class Test {
         quads.add(new Card(11, Suit.HEART));
 
         quads = sortByRank(quads);
-        System.out.println("Quads: " + quads.toString());
         return quads;
     }
 
@@ -144,7 +142,6 @@ public class Test {
         trips.add(new Card(11, Suit.HEART));
 
         trips = sortByRank(trips);
-        System.out.println("Trips: " + trips.toString());
         return trips;
     }
 
@@ -160,7 +157,6 @@ public class Test {
         pair.add(new Card(11, Suit.HEART));
 
         pair = sortByRank(pair);
-        System.out.println("Pair: " + pair.toString());
         return pair;
     }
 
@@ -176,10 +172,22 @@ public class Test {
         twoPair.add(new Card(11, Suit.HEART));
 
         twoPair = sortByRank(twoPair);
-        System.out.println("Two Pair: " + twoPair.toString());
         return twoPair;
     }
 
+    public static List<Card> highCardTest() {
+        List<Card> highCard = new ArrayList<>();
 
+        highCard.add(new Card(5, Suit.HEART));
+        highCard.add(new Card(6, Suit.CLUB));
+        highCard.add(new Card(6, Suit.SPADE));
+        highCard.add(new Card(4, Suit.DIAMOND));
+        highCard.add(new Card(4, Suit.SPADE));
+        highCard.add(new Card(14, Suit.CLUB));
+        highCard.add(new Card(11, Suit.HEART));
+
+        highCard = sortByRank(highCard);
+        return highCard;
+    }
 
 }
