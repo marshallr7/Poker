@@ -1,3 +1,5 @@
+// TODO: MAKE ACE 14 INSTEAD OF 1
+
 package xyz.marshalldev.CardHandler;
 
 import lombok.Data;
@@ -5,17 +7,17 @@ import lombok.Data;
 @Data
 public class Card {
 
-    String value;
+    int value;
     Suit suit;
 
-    public Card(String value, Suit suit) {
+    public Card(int value, Suit suit) {
         this.value = value;
         this.suit = suit;
     }
 
     @Override
     public String toString() {
-        if (this.value.equals("1")) {
+        if (this.value == 14) {
             return "A" + suit.symbol;
         }
 
@@ -23,21 +25,21 @@ public class Card {
             return this.value + suit.symbol;
         }
 
-        if (this.value.equals("11")) {
+        if (this.value == 11) {
             return "J" + suit.symbol;
         }
 
-        if (this.value.equals("12")) {
+        if (this.value == 12) {
             return "Q" + suit.symbol;
         }
 
-        if (this.value.equals("13")) {
+        if (this.value == 13) {
             return "K" + suit.symbol;
         }
         return null;
     }
 
-    private boolean isFaceCard(String value) {
-        return value.equals("11") || value.equals("12") || value.equals("13");
+    private boolean isFaceCard(int value) {
+        return value == 11 || value == 12 || value == 13;
     }
 }
