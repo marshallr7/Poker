@@ -68,13 +68,19 @@ public enum Action {
             case CHECK:
                 break;
             case CALL:
-                //
+                call(player, pot);
                 break;
             case ALL_IN:
                 break;
             default:
                 break;
         }
+    }
+
+    private static void call(Player player, Pot pot) {
+        int amountToCall = pot.getAmountPerPlayer() - player.getCurrentBet();
+        player.removeBalance(amountToCall);
+        player.addBetAmount(amountToCall);
     }
 }
 
