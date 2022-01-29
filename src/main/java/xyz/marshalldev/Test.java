@@ -26,13 +26,50 @@ public class Test {
         return communityCardsCopy;
     }
 
+    public static List<Card> sortBySuit(List<Card> communityCards) {
+        List<Card> communityCardsCopy = new ArrayList<>(communityCards);
+        int min;
+
+        for (int i = 0; i < communityCards.size(); i++) {
+            min = i;
+
+            for (int j = i+1; j <communityCards.size(); j++) {
+                if (communityCards.get(j).getSuit().getRank() < communityCards.get(min).getSuit().getRank()) {
+                    min = j;
+                }
+            }
+            Collections.swap(communityCardsCopy, i, min);
+        }
+        System.out.println(communityCardsCopy);
+        return communityCardsCopy;
+    }
+
     Test() {
+        System.out.println("Royal Flush: " + Rankings.isRoyalFlush(royalFlushTest()));
         System.out.println("Straight Flush: " + Rankings.isStraightFlush(straightTest()));
         System.out.println("Quads: " + Rankings.isQuads(quadsTest()));
+        // full house
+        System.out.println("Flush: " + Rankings.isFlush(flushTest()));
         System.out.println("Straight: " + Rankings.isStraight(straightTest()));
         System.out.println("Trips: " + Rankings.isTrips(tripsTest()));
         System.out.println("Two Pair: " + Rankings.isTwoPair(twoPairTest()));
         System.out.println("Pair: " + Rankings.isPair(pairTest()));
+    }
+
+    private static List<Card> royalFlushTest() {
+        List<Card> royalFlushTest = new ArrayList<>();
+
+        royalFlushTest.add(new Card(1, Suit.CLUB));
+        royalFlushTest.add(new Card(6, Suit.CLUB));
+        royalFlushTest.add(new Card(10, Suit.CLUB));
+        royalFlushTest.add(new Card(11, Suit.CLUB));
+        royalFlushTest.add(new Card(12, Suit.CLUB));
+        royalFlushTest.add(new Card(13, Suit.CLUB));
+        royalFlushTest.add(new Card(14, Suit.CLUB));
+
+        royalFlushTest = sortByRank(royalFlushTest);
+        System.out.println("Royal Flush: " + royalFlushTest.toString());
+        return royalFlushTest;
     }
 
     private static List<Card> straightTest() {
@@ -64,6 +101,20 @@ public class Test {
         quads = sortByRank(quads);
         System.out.println("Quads: " + quads.toString());
         return quads;
+    }
+
+    private static List<Card> flushTest() {
+        List<Card> flush = new ArrayList<>();
+
+        flush.add(new Card(6, Suit.SPADE));
+        flush.add(new Card(6, Suit.HEART));
+        flush.add(new Card(14, Suit.SPADE));
+        flush.add(new Card(10, Suit.DIAMOND));
+        flush.add(new Card(10, Suit.SPADE));
+        flush.add(new Card(11, Suit.SPADE));
+        flush.add(new Card(2, Suit.SPADE));
+
+        return flush;
     }
 
     private static List<Card> tripsTest() {
