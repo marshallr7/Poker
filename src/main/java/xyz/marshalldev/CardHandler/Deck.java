@@ -14,9 +14,9 @@ public class Deck {
     }
 
     public void generate() {
-        for (int i = 1; i < 14; i++) {
+        for (int i = 2; i < 15; i++) {
             int finalI = i;
-            Suit.stream().forEach(suit -> deck.add(new Card(String.valueOf(finalI), suit)));
+            Suit.stream().forEach(suit -> deck.add(new Card(finalI, suit)));
         }
     }
 
