@@ -1,6 +1,7 @@
 package xyz.marshalldev.CardHandler;
 
 import lombok.Getter;
+import lombok.NonNull;
 import xyz.marshalldev.PlayerHandler.Player;
 
 import java.util.ArrayList;
@@ -171,5 +172,9 @@ public class Rankings {
             }
         }
         return false;
+    }
+
+    public static int getHighCard(@NonNull List<Card> cards) {
+        return cards.get(-1).getValue();
     }
 }
