@@ -27,11 +27,15 @@ public class Player {
         return this.balance != 0 && status != Action.FOLD;
     }
 
-    public void updateBalance(int amount, boolean add) {
-        if (add) {
-            setBalance(getBalance() + amount);
-        } else {
-            setBalance(getBalance() - amount);
-        }
+    public void addBalance(int amount) {
+        setBalance(getBalance() + amount);
+    }
+
+    public void removeBalance(int amount) {
+        setBalance(getBalance() - amount);
+    }
+
+    public void addBetAmount(int amount) {
+        setCurrentBet(getCurrentBet() + amount);
     }
 }
