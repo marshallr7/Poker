@@ -94,6 +94,16 @@ public class Rankings {
         return false;
     }
 
+    public static boolean isFlush(List<Card> cards) {
+        // spade, heart, diamond, club
+        long spade = cards.stream().filter(card -> card.getSuit().equals(Suit.SPADE)).count();
+        long heart = cards.stream().filter(card -> card.getSuit().equals(Suit.HEART)).count();
+        long diamond = cards.stream().filter(card -> card.getSuit().equals(Suit.DIAMOND)).count();
+        long club = cards.stream().filter(card -> card.getSuit().equals(Suit.CLUB)).count();
+
+        return spade >= 5 || heart >= 5 || diamond >= 5 || club >= 5;
+    }
+
     // Straight: 10, Jack, Queen, King, Ace
     public static boolean isStraight(List<Card> cards) {
         for (int i = 0; i < cards.size()-4; i++) {
