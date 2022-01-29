@@ -192,6 +192,6 @@ public class Rankings {
     }
 
     public static int getHighCard(@NonNull List<Card> cards) {
-        return cards.get(-1).getValue();
+        return cards.get(cards.size()-1).getValue();
     }
 }
