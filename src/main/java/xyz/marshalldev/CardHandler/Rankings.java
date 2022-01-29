@@ -95,6 +95,23 @@ public class Rankings {
         return false;
     }
 
+    public static boolean isFullHouse(List<Card> cards) {
+        boolean set = false;
+        boolean pair = false;
+
+        for (int i = 0; i < cards.size()-1; i++) {
+            int value = cards.get(i).getValue();
+
+            // Trips
+            if (value == cards.get(i+1).getValue() && value == cards.get(i+2).getValue()) {
+                set = true;
+            } else if (value == cards.get(i+1).getValue()) {
+                pair = true;
+            }
+        }
+        return set && pair;
+    }
+
     public static boolean isFlush(List<Card> cards) {
         // spade, heart, diamond, club
         long spade = cards.stream().filter(card -> card.getSuit().equals(Suit.SPADE)).count();
