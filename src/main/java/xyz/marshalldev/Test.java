@@ -31,6 +31,8 @@ public class Test {
         System.out.println("Quads: " + Rankings.isQuads(quadsTest()));
         System.out.println("Straight: " + Rankings.isStraight(straightTest()));
         System.out.println("Trips: " + Rankings.isTrips(tripsTest()));
+        System.out.println("Two Pair: " + Rankings.isTwoPair(twoPairTest()));
+        System.out.println("Pair: " + Rankings.isPair(pairTest()));
     }
 
     private static List<Card> straightTest() {
@@ -78,6 +80,38 @@ public class Test {
         trips = sortByRank(trips);
         System.out.println("Trips: " + trips.toString());
         return trips;
+    }
+
+    public static List<Card> pairTest() {
+        List<Card> pair = new ArrayList<>();
+
+        pair.add(new Card(5, Suit.HEART));
+        pair.add(new Card(6, Suit.CLUB));
+        pair.add(new Card(3, Suit.SPADE));
+        pair.add(new Card(4, Suit.DIAMOND));
+        pair.add(new Card(4, Suit.SPADE));
+        pair.add(new Card(14, Suit.CLUB));
+        pair.add(new Card(11, Suit.HEART));
+
+        pair = sortByRank(pair);
+        System.out.println("Pair: " + pair.toString());
+        return pair;
+    }
+
+    public static List<Card> twoPairTest() {
+        List<Card> twoPair = new ArrayList<>();
+
+        twoPair.add(new Card(5, Suit.HEART));
+        twoPair.add(new Card(6, Suit.CLUB));
+        twoPair.add(new Card(6, Suit.SPADE));
+        twoPair.add(new Card(4, Suit.DIAMOND));
+        twoPair.add(new Card(4, Suit.SPADE));
+        twoPair.add(new Card(14, Suit.CLUB));
+        twoPair.add(new Card(11, Suit.HEART));
+
+        twoPair = sortByRank(twoPair);
+        System.out.println("Two Pair: " + twoPair.toString());
+        return twoPair;
     }
 
 
