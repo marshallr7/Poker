@@ -1,22 +1,24 @@
 package xyz.marshalldev.GameHandler;
 
 import lombok.Getter;
-import lombok.Setter;
 import xyz.marshalldev.PlayerHandler.Player;
 
 public class Pot {
 
-    @Getter
-    @Setter
     int value;
+    @Getter
     int amountPerPlayer;
 
     void updatePot(int amount) {
-        setValue(amount + getValue());
+        this.value = amount + this.value;
+    }
+
+    void updateAmountPerPlayer(int amount) {
+        this.amountPerPlayer = this.amountPerPlayer + amount;
     }
 
     private void payPot(Player player) {
-        player.updateBalance(value);
-        setValue(0);
+        player.addBalance(value);
+        this.value = 0;
     }
 }
