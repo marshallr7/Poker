@@ -21,18 +21,23 @@ public class Rankings {
         this.sortedByRank = sortByRank(allCards);
     }
 
-//    public static ArrayList<Card> sortBySuit(ArrayList<Card> communityCards) {
-//        int min;
-//
-//        for (int i = 0; i < communityCards.size(); i++) {
-//            min = i;
-//
-//            for (int j = i+1; j <communityCards.size(); j++) {
-//                if (communityCards.get(j).getSuit().getRank() < communityCards.get(min).getSuit().getRank()) {
-//                }
-//            }
-//        }
-//    }
+    public static List<Card> sortBySuit(List<Card> communityCards) {
+        List<Card> communityCardsCopy = new ArrayList<>(communityCards);
+        int min;
+
+        for (int i = 0; i < communityCards.size(); i++) {
+            min = i;
+
+            for (int j = i+1; j <communityCards.size(); j++) {
+                if (communityCards.get(j).getSuit().getRank() < communityCards.get(min).getSuit().getRank()) {
+                    min = j;
+                }
+            }
+            Collections.swap(communityCardsCopy, i, min);
+        }
+        System.out.println(communityCardsCopy);
+        return communityCardsCopy;
+    }
 
 
     private List<Card> sortByRank(List<Card> communityCards) {
@@ -51,8 +56,24 @@ public class Rankings {
         return communityCardsCopy;
     }
 
-//    public static boolean isRoyalFlush(List<Card> cards) {
-//    }
+    public static boolean isRoyalFlush(List<Card> cards) {
+        for (int i = cards.size()-1; i > 4; i--) {
+            Suit suit = cards.get(i).getSuit();
+
+            if (cards.get(i).getValue() == 14) {
+                if (cards.get(i-1).getValue() == 13 && cards.get(i-1).getSuit() == suit) {
+                    if (cards.get(i-2).getValue() == 12 && cards.get(i-2).getSuit() == suit) {
+                        if (cards.get(i-3).getValue() == 11 && cards.get(i-3).getSuit() == suit) {
+                            if (cards.get(i-4).getValue() == 10 && cards.get(i-4).getSuit() == suit) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     // Straight Flush: 10Clubs, JackClubs, QueenClubs, KingClubs, AceClubs
     public static boolean isStraightFlush(List<Card> cards) {
