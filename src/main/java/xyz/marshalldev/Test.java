@@ -48,7 +48,7 @@ public class Test {
         System.out.println("Royal Flush: " + Rankings.isRoyalFlush(royalFlushTest()));
         System.out.println("Straight Flush: " + Rankings.isStraightFlush(straightTest()));
         System.out.println("Quads: " + Rankings.isQuads(quadsTest()));
-        // full house
+        System.out.println("Full House Test: " + Rankings.isFullHouse(fullHouseTest()));
         System.out.println("Flush: " + Rankings.isFlush(flushTest()));
         System.out.println("Straight: " + Rankings.isStraight(straightTest()));
         System.out.println("Trips: " + Rankings.isTrips(tripsTest()));
@@ -101,6 +101,21 @@ public class Test {
         quads = sortByRank(quads);
         System.out.println("Quads: " + quads.toString());
         return quads;
+    }
+
+    private static List<Card> fullHouseTest() {
+        List<Card> fullHouse = new ArrayList<>();
+
+        fullHouse.add(new Card(6, Suit.SPADE));
+        fullHouse.add(new Card(6, Suit.HEART));
+        fullHouse.add(new Card(14, Suit.SPADE));
+        fullHouse.add(new Card(10, Suit.DIAMOND));
+        fullHouse.add(new Card(10, Suit.SPADE));
+        fullHouse.add(new Card(10, Suit.SPADE));
+        fullHouse.add(new Card(2, Suit.SPADE));
+
+        sortByRank(fullHouse);
+        return fullHouse;
     }
 
     private static List<Card> flushTest() {
