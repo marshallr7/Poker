@@ -115,6 +115,21 @@ public class Rankings {
         return false;
     }
 
+    public static boolean isTwoPair(List<Card> cards) {
+        int pairValue = 0;
+        for (int i = 0; i < cards.size() -1; i++) {
+            int value = cards.get(i).getValue();
+
+            if (value == cards.get(i+1).getValue() && pairValue == 0) {
+                pairValue = value;
+                i++;
+            } else if (value == cards.get(i+1).getValue() && value != pairValue && pairValue != 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Pair: Ace, Ace
     public static boolean isPair(List<Card> cards) {
         for (int i = 0; i < cards.size()-1; i++) {
