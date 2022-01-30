@@ -5,6 +5,7 @@ import xyz.marshalldev.PlayerHandler.Player;
 
 public class Pot {
 
+    @Getter
     int value;
     @Getter
     int amountPerPlayer;
