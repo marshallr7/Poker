@@ -42,7 +42,7 @@ public enum Action {
 
                 // If player doesn't enter a proper integer
                 try {
-                    amount = Integer.parseInt(GUI.dialogTemplate("How much would you like to bet?", "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance()));
+                    amount = Integer.parseInt(GUI.dialogTemplate("How much would you like to bet?", "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance() + " - Current Pot Size: $" + pot.getValue()));
                 } catch (NumberFormatException e) {
                     betAction(player, action, pot, activePlayers);
                 }
