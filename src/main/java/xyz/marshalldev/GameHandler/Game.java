@@ -13,25 +13,25 @@ import java.util.Map;
 @Data
 public class Game {
 
-    private Deck deck;
-    private Pot pot;
+    private Deck deck;                                              // Deck of cards
+    private Pot pot;                                                // Pot for the game
 
-    List<Card> communityCards = new ArrayList<>();
+    List<Card> communityCards = new ArrayList<>();                  // Flop, turn card, and river
 
-    private final int MAX_PLAYERS = 9;
-    private int numPlayers;
-    private int activePlayers;
-    private final Map<Integer, Player> players = new HashMap<>();
+    private final int MAX_PLAYERS = 9;                              // The max number of players allowed in a single game
+    private int numPlayers;                                         // The total number of players
+    private int activePlayers;                                      // The number of players that are active in the pot
+    private final Map<Integer, Player> players = new HashMap<>();   // Player information storage
 
-    private int startingBalance;
+    private int startingBalance;                                    // The starting balance for all players
 
-    private int bigBlindAmount;
-    private int littleBlindAmount;
-    private int bigBlindIndex;
-    private int littleBlindIndex;
-    private int buttonIndex;
+    private int bigBlindAmount;                                     // Amount of money the big blind pays per hand
+    private int littleBlindAmount;                                  // Amount of money the little blind pays per hand
+    private int bigBlindIndex;                                      // The seat the big blind is located in
+    private int littleBlindIndex;                                   // The seat the little blind is located in
+    private int buttonIndex;                                        // The seat the button is located in
 
-    private int lastBetIndex;
+    private int lastBetIndex;                                       // The seat that the last player to bet is located in
 
     public Game(int numPlayers, int startingBalance, int buttonIndex, int littleBlindIndex, int bigBlindIndex) {
         this.numPlayers = numPlayers;
@@ -91,8 +91,10 @@ public class Game {
 
             if (player.isActive()) {
                 if (activePlayers > 1) {
-                    Action action = Action.getAction(player);
-                    Action.betAction(player, action, pot, activePlayers);
+                    if (!player.isAllIn()) {
+                        Action action = Action.getAction(player);
+                        Action.betAction(player, action, pot, activePlayers);
+                    }
                 } else if (activePlayers == 1) {
                     // player wins hand
                     // give pot
@@ -106,6 +108,23 @@ public class Game {
     private void dealCommunityCards(int amount) {
         for (int i = 0; i < amount; i++) {
             this.communityCards.add(deck.deal());
+        }
+    }
+
+    private void handEnded(Player player, Pot pot) {
+        // give money from pot
+        player.addBalance(pot.getAmountPerPlayer());
+        incrementPositions();
+        this.communityCards.clear();
+
+    }
+
+    // TODO add some sort of map to keep track of active players and their position to make it easier for incrementation
+    private void incrementPositions() {
+        if (bigBlindIndex == numPlayers) {
+            bigBlindIndex = 1;
+        } else if (littleBlindIndex == numPlayers) {
+            littleBlindIndex = 1;
         }
     }
 }
