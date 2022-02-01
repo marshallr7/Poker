@@ -24,4 +24,8 @@ public class Hand {
         cards.forEach(card -> hand[0] = hand[0] + card.toString() + " ");
         return hand[0];
     }
+
+    public void resetHand() {
+        cards.clear();
+    }
 }
