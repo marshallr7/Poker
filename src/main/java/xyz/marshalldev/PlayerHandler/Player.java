@@ -14,6 +14,7 @@ public class Player {
 
     private int balance;                    // Money balance
     private Hand hand = new Hand();         // Hand
+    private int seat;                       // Seat at table
 
     // Current pot info
     private int currentBet;                 // Amount of money in current pot
@@ -39,11 +40,11 @@ public class Player {
 
     public void addBet(int amount) {
         setCurrentBet(getCurrentBet() + amount);
-        setBalance(getBalance() - amount);
+        removeBalance(amount);
     }
 
     @Override
     public String toString() {
-        return "Balance: $" + balance + "\nHand: " + hand.toString() + "\nCurrent bet: $" + currentBet + "\nStatus: " + status + "\nRank: " + rank;
+        return "Seat: " + seat + "\nBalance: $" + balance + "\nHand: " + hand.toString() + "\nCurrent bet: $" + currentBet + "\nStatus: " + status + "\nRank: " + rank;
     }
 }
