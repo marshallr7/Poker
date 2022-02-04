@@ -1,7 +1,10 @@
 package xyz.marshalldev.GameHandler;
 
+import xyz.marshalldev.CardHandler.Card;
 import xyz.marshalldev.GUI;
 import xyz.marshalldev.PlayerHandler.Player;
+
+import java.util.List;
 
 public enum Action {
     BET,
@@ -19,11 +22,19 @@ public enum Action {
     };
 
     // TODO: modify GUI options based on user met requirements
-    public static Action getAction(Player player) {
-        int result = GUI.buttonTemplate(
-                "What would you like to do?",
-                "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance(),
-                betActions);
+    public static Action getAction(Player player, List<Card> communityCards) {
+        Integer result = null;
+        if (communityCards.size() == 0) {
+            result = GUI.buttonTemplate(
+                    "What would you like to do?",
+                    "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance(),
+                    betActions);
+        } else {
+            result = GUI.buttonTemplate(
+                    "What would you like to do?\nCommunity cards: " + communityCards.toString(),
+                    "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance(),
+                    betActions);
+        }
 
         return switch (result) {
             case 0 -> Action.CHECK;
@@ -31,7 +42,7 @@ public enum Action {
             case 2 -> Action.FOLD;
             case 3 -> Action.CALL;
             case 4 -> Action.ALL_IN;
-            default -> getAction(player);
+            default -> getAction(player, communityCards);
         };
     }
 
