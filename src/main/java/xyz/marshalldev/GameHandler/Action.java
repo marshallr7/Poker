@@ -37,7 +37,7 @@ public enum Action {
 
     public static void betAction(Player player, Action action, Pot pot, int activePlayers) {
         switch (action) {
-            case BET:
+            case BET -> {
                 int amount = 0;
 
                 // If player doesn't enter a proper integer
@@ -57,30 +57,25 @@ public enum Action {
                     player.setBalance(0);
                     player.setStatus(Action.ALL_IN);
                 }
-
                 pot.updatePot(amount);
-                pot.amountPerPlayer += amount;
-                break;
-            case FOLD:
+                pot.updateAmountPerPlayer(amount);
+                player.addBet(amount);
+            }
+            case FOLD -> {
                 player.setStatus(Action.FOLD);
                 activePlayers -= 1;
-                break;
-            case CHECK:
-                break;
-            case CALL:
-                call(player, pot);
-                break;
-            case ALL_IN:
-                break;
-            default:
-                break;
+            }
+            case CALL -> {
+                int amountToCall = pot.getAmountPerPlayer() - player.getCurrentBet();
+                player.addBet(amountToCall);
+            }
+            case ALL_IN -> {
+                player.addBet(player.getBalance());
+                player.setStatus(Action.ALL_IN);
+            }
+            default -> {
+            }
         }
-    }
-
-    private static void call(Player player, Pot pot) {
-        int amountToCall = pot.getAmountPerPlayer() - player.getCurrentBet();
-        player.removeBalance(amountToCall);
-        player.addBetAmount(amountToCall);
     }
 }
 
