@@ -1,7 +1,6 @@
 package xyz.marshalldev.CardHandler;
 
 import lombok.Getter;
-import lombok.NonNull;
 import xyz.marshalldev.PlayerHandler.Player;
 
 import java.util.ArrayList;
@@ -16,8 +15,12 @@ public class Ranking {
 
     public Ranking(Player player, List<Card> communityCards) {
         List<Card> allCards = Stream.concat(player.getHand().getCards().stream(), communityCards.stream()).toList();
-        // if allCards contains 14, add 1
-        this.sortedByRank = sortByRank(allCards);
+        for (Card card : allCards) {
+            if (card.getValue() == 14) {
+                allCards.add(new Card(1, card.getSuit()));
+            }
+        }
+        sortedByRank = sortByRank(allCards);
     }
 
     public static Rank getHandValue() {
