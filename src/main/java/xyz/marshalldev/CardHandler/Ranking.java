@@ -23,7 +23,7 @@ public class Ranking {
         sortedByRank = sortByRank(allCards);
     }
 
-    public static Rank getHandValue() {
+    public Rank getHandValue() {
         if (isRoyalFlush()) {
             return Rank.ROYAL_FLUSH;
         } else if (isStraightFlush()) {
@@ -64,7 +64,8 @@ public class Ranking {
         return communityCardsCopy;
     }
 
-    public static boolean isRoyalFlush() {
+    // Ace King Queen Jack 10 Suited
+    private boolean isRoyalFlush() {
         for (int i = sortedByRank.size()-1; i > 4; i--) {
             Suit suit = sortedByRank.get(i).getSuit();
 
@@ -84,7 +85,7 @@ public class Ranking {
     }
 
     // Straight Flush: 10Clubs, JackClubs, QueenClubs, KingClubs, AceClubs
-    public static boolean isStraightFlush() {
+    private boolean isStraightFlush() {
         for (int i = 0; i < sortedByRank.size()-4; i++) {
             int value = sortedByRank.get(i).getValue();
             Suit suit = sortedByRank.get(i).getSuit();
@@ -102,7 +103,8 @@ public class Ranking {
         return false;
     }
 
-    public static boolean isFullHouse() {
+    // Ace Ace Ace 10 10
+    private boolean isFullHouse() {
         boolean set = false;
         boolean pair = false;
 
@@ -119,8 +121,8 @@ public class Ranking {
         return set && pair;
     }
 
-    public static boolean isFlush() {
-        // spade, heart, diamond, club
+    // 5 cards of the same suit
+    private boolean isFlush() {
         long spade = sortedByRank.stream().filter(card -> card.getSuit().equals(Suit.SPADE)).count();
         long heart = sortedByRank.stream().filter(card -> card.getSuit().equals(Suit.HEART)).count();
         long diamond = sortedByRank.stream().filter(card -> card.getSuit().equals(Suit.DIAMOND)).count();
@@ -130,7 +132,7 @@ public class Ranking {
     }
 
     // Straight: 10, Jack, Queen, King, Ace
-    public static boolean isStraight() {
+    private boolean isStraight() {
         for (int i = 0; i < Ranking.sortedByRank.size()-4; i++) {
             int value = Ranking.sortedByRank.get(i).getValue();
 
@@ -148,7 +150,7 @@ public class Ranking {
     }
 
     // Four of a kind: Ace, Ace, Ace, Ace
-    public static boolean isQuads() {
+    private boolean isQuads() {
         for (int i = 0; i < sortedByRank.size()-3; i++) {
             int value = sortedByRank.get(i).getValue();
 
@@ -160,7 +162,7 @@ public class Ranking {
     }
 
     // Three of a kind: Ace, Ace, Ace
-    public static boolean isTrips() {
+    private boolean isTrips() {
         for (int i = 0; i < sortedByRank.size()-2; i++) {
             int value = sortedByRank.get(i).getValue();
 
@@ -171,7 +173,7 @@ public class Ranking {
         return false;
     }
 
-    public static boolean isTwoPair() {
+    private boolean isTwoPair() {
         int pairValue = 0;
         for (int i = 0; i < sortedByRank.size()-1; i++) {
             int value = sortedByRank.get(i).getValue();
@@ -187,7 +189,7 @@ public class Ranking {
     }
 
     // Pair: Ace, Ace
-    public static boolean isPair() {
+    private boolean isPair() {
         for (int i = 0; i < sortedByRank.size()-1; i++) {
             int value = sortedByRank.get(i).getValue();
 
@@ -198,7 +200,8 @@ public class Ranking {
         return false;
     }
 
-    public static int getHighCard() {
+    // Highest card in hand
+    public int getHighCard() {
         return sortedByRank.get(sortedByRank.size()-1).getValue();
     }
 }
