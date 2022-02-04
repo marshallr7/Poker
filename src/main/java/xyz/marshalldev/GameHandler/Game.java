@@ -3,6 +3,7 @@ package xyz.marshalldev.GameHandler;
 import lombok.Data;
 import xyz.marshalldev.CardHandler.Card;
 import xyz.marshalldev.CardHandler.Deck;
+import xyz.marshalldev.CardHandler.Ranking;
 import xyz.marshalldev.PlayerHandler.Player;
 
 import java.util.*;
@@ -18,6 +19,7 @@ public class Game {
     private final int MAX_PLAYERS = 9;                              // The max number of players allowed in a single game
     private int numPlayers;                                         // The total number of players
     private int activePlayers;                                      // The number of players that are active in the pot
+    // Probably change this to linked list and store player seat on Player
     private Map<Integer, Player> players = new LinkedHashMap<>();   // Player information storage
 
     private int startingBalance;                                    // The starting balance for all players
@@ -89,9 +91,10 @@ public class Game {
     }
 
     private void betting() {
+        // Rank value - player seat number
+        Map<Integer, Integer> handRanks = new HashMap<>();
         int j = littleBlindIndex;
-        // This for loop isn't going to work, if a player raises, it needs to go around for everyone to call
-        // Going to need to use lastBetIndex, which is updated on bet, and have it set i back to zero
+
         for (int i = 0; i < numPlayers; i++, j++) {
             Action action = null;
             if (j == numPlayers) {
@@ -121,8 +124,14 @@ public class Game {
                 i = 0;
             }
         }
-
+        // Showdown
         if (communityCards.size() == 5) {
+            for (Player player : players.values()) {
+                if (player.isActive()) {
+                    Ranking ranking = new Ranking(player, communityCards);
+                    ranking.getHandValue();
+                }
+            }
             // find winner
             // handEnded()
         }
