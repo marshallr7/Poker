@@ -5,10 +5,7 @@ import xyz.marshalldev.CardHandler.Card;
 import xyz.marshalldev.CardHandler.Deck;
 import xyz.marshalldev.PlayerHandler.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Data
 public class Game {
@@ -21,7 +18,7 @@ public class Game {
     private final int MAX_PLAYERS = 9;                              // The max number of players allowed in a single game
     private int numPlayers;                                         // The total number of players
     private int activePlayers;                                      // The number of players that are active in the pot
-    private final Map<Integer, Player> players = new HashMap<>();   // Player information storage
+    private Map<Integer, Player> players = new LinkedHashMap<>();   // Player information storage
 
     private int startingBalance;                                    // The starting balance for all players
 
@@ -43,11 +40,17 @@ public class Game {
         this.lastBetIndex = littleBlindIndex;
 
         deck = new Deck();
-        dealCommunityCards(5);
+        pot = new Pot();
+
         createPlayers();
         addStartingBalances();
         dealToPlayers();
         betting();
+        dealCommunityCards(3);
+        betting();
+        dealCommunityCards(1);
+        betting();
+        dealCommunityCards(1);
     }
 
     private void createPlayers() {
@@ -83,6 +86,7 @@ public class Game {
         // This for loop isn't going to work, if a player raises, it needs to go around for everyone to call
         // Going to need to use lastBetIndex, which is updated on bet, and have it set i back to zero
         for (int i = 0; i < numPlayers; i++, j++) {
+            Action action = null;
             if (j == numPlayers) {
                 j = 0;
             }
@@ -92,7 +96,7 @@ public class Game {
             if (player.isActive()) {
                 if (activePlayers > 1) {
                     if (!player.isAllIn()) {
-                        Action action = Action.getAction(player);
+                        action = Action.getAction(player);
                         Action.betAction(player, action, pot, activePlayers);
                     }
                 } else if (activePlayers == 1) {
@@ -101,6 +105,13 @@ public class Game {
                     // increment blinds and button
                     // reset hands
                 }
+            }
+
+            if (action == Action.BET) {
+                // j is set to seat after player who bet
+                j = i+1;
+                // set i to zero so betting makes its way around again
+                i = 0;
             }
         }
     }
@@ -112,19 +123,19 @@ public class Game {
     }
 
     private void handEnded(Player player, Pot pot) {
-        // give money from pot
+        // Give money from pot to winner
         player.addBalance(pot.getAmountPerPlayer());
+        // Increment blinds and button
         incrementPositions();
+        // Clear CommunityCards
         this.communityCards.clear();
-
+        // Reset cards of active players
+        // Reset player currentBet
+        // Reset player rank
     }
 
     // TODO add some sort of map to keep track of active players and their position to make it easier for incrementation
     private void incrementPositions() {
-        if (bigBlindIndex == numPlayers) {
-            bigBlindIndex = 1;
-        } else if (littleBlindIndex == numPlayers) {
-            littleBlindIndex = 1;
-        }
+
     }
 }
