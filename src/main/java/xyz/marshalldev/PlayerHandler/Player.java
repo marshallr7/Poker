@@ -22,6 +22,11 @@ public class Player {
 
     private Rank rank;                      // Player showdown value
 
+    public Player(int startBalance, int seatNumber) {
+        this.balance = startBalance;
+        this.seat = seatNumber;
+    }
+
     public boolean isAllIn() {
         return this.balance == 0 && status != Action.FOLD;
     }
@@ -32,10 +37,6 @@ public class Player {
 
     public void addBalance(int amount) {
         setBalance(getBalance() + amount);
-    }
-
-    public void removeBalance(int amount) {
-        setBalance(getBalance() - amount);
     }
 
     public void addBet(int amount) {
