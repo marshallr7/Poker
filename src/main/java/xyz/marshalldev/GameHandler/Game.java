@@ -44,13 +44,7 @@ public class Game {
 
         createPlayers();
         addStartingBalances();
-        dealToPlayers();
-        betting();
-        dealCommunityCards(3);
-        betting();
-        dealCommunityCards(1);
-        betting();
-        dealCommunityCards(1);
+        startGame();
     }
 
     private void createPlayers() {
@@ -62,6 +56,19 @@ public class Game {
     private void addStartingBalances() {
         for (Map.Entry<Integer, Player> element : players.entrySet()) {
             element.getValue().setBalance(startingBalance);
+        }
+    }
+
+    private void startGame() {
+        while (players.size() > 1) {
+            dealToPlayers();
+            betting();
+            dealCommunityCards(3);
+            betting();
+            dealCommunityCards(1);
+            betting();
+            dealCommunityCards(1);
+            betting();
         }
     }
 
@@ -96,7 +103,7 @@ public class Game {
             if (player.isActive()) {
                 if (activePlayers > 1) {
                     if (!player.isAllIn()) {
-                        action = Action.getAction(player);
+                        action = Action.getAction(player, communityCards);
                         Action.betAction(player, action, pot, activePlayers);
                     }
                 } else if (activePlayers == 1) {
@@ -113,6 +120,11 @@ public class Game {
                 // set i to zero so betting makes its way around again
                 i = 0;
             }
+        }
+
+        if (communityCards.size() == 5) {
+            // find winner
+            // handEnded()
         }
     }
 
