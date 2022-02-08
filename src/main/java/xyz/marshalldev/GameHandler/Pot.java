@@ -15,6 +15,8 @@ public class Pot {
 
     Map<Player, Integer> bets = new HashMap<>();    // Player - Bet amount, used to manage payouts
 
+    // Constructor to fill bets with players, 0
+
     void updatePot(int amount) {
         this.value = amount + this.value;
     }
@@ -26,5 +28,11 @@ public class Pot {
     private void payPot(Player player) {
         player.addBalance(value);
         this.value = 0;
+    }
+
+    public void reset() {
+        this.value = 0;
+        this.amountPerPlayer = 0;
+        bets.values().stream().forEach(i -> System.out.println(i));
     }
 }
