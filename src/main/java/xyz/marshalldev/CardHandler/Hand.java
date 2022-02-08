@@ -25,7 +25,7 @@ public class Hand {
         return hand[0];
     }
 
-    public void resetHand() {
+    public void reset() {
         cards.clear();
     }
 }
