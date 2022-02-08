@@ -104,6 +104,8 @@ public class Game {
                     // give pot
                     // increment blinds and button
                     // reset hands
+                    handEnded(player, pot);
+                    return;
                 }
             }
 
@@ -135,9 +137,11 @@ public class Game {
         incrementPositions();
         // Clear CommunityCards
         this.communityCards.clear();
-        // Reset cards of active players
-        // Reset player currentBet
-        // Reset player rank
+        // Reset players
+        for (Player player : players.values()) {
+            player.reset();
+        }
+
     }
 
     // TODO add some sort of map to keep track of active players and their position to make it easier for incrementation
