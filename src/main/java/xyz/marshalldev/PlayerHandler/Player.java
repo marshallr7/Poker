@@ -39,9 +39,28 @@ public class Player {
         setBalance(getBalance() + amount);
     }
 
+    public void removeBalance(int amount) {
+        setBalance(getBalance() - amount);
+    }
+
     public void addBet(int amount) {
         setCurrentBet(getCurrentBet() + amount);
         removeBalance(amount);
+    }
+
+    public void reset() {
+        if (getHand() != null) {
+            getHand().reset();
+        }
+        if (getCurrentBet() != 0) {
+            setCurrentBet(0);
+        }
+        if (getRank() != null) {
+            setRank(null);
+        }
+        if (getStatus() != null) {
+            setStatus(null);
+        }
     }
 
     @Override
