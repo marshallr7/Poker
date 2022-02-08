@@ -41,7 +41,6 @@ public class Game {
 
         deck = new Deck();
         pot = new Pot();
-
         createPlayers();
         startGame();
     }
@@ -142,6 +141,7 @@ public class Game {
             player.reset();
         }
 
+        pot.reset();
     }
 
     // TODO add some sort of map to keep track of active players and their position to make it easier for incrementation
