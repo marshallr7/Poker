@@ -10,8 +10,6 @@ import java.util.Scanner;
 @Data
 public class Player {
 
-    private Scanner scan = new Scanner(System.in);
-
     private int balance;                    // Money balance
     private Hand hand = new Hand();         // Hand
     private int seat;                       // Seat at table
