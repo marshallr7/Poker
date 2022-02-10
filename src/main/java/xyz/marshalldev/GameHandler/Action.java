@@ -23,7 +23,7 @@ public enum Action {
 
     // TODO: modify GUI options based on user met requirements
     public static Action getAction(Player player, List<Card> communityCards) {
-        Integer result = null;
+        Integer result;
         if (communityCards.size() == 0) {
             result = GUI.buttonTemplate(
                     "What would you like to do?",
@@ -31,7 +31,7 @@ public enum Action {
                     betActions);
         } else {
             result = GUI.buttonTemplate(
-                    "What would you like to do?\nCommunity cards: " + communityCards.toString(),
+                    "What would you like to do?\nCommunity cards: " + communityCards,
                     "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance(),
                     betActions);
         }
