@@ -51,13 +51,16 @@ public enum Action {
             case BET -> {
                 int amount = 0;
 
-                // If player doesn't enter a proper integer
+                // If player doesn't enter an integer
                 try {
                     amount = Integer.parseInt(GUI.dialogTemplate("How much would you like to bet?", "Cards: " + player.getHand().toString() + " - Balance: $" + player.getBalance() + " - Current Pot Size: $" + pot.getValue()));
                 } catch (NumberFormatException e) {
                     betAction(player, action, pot, activePlayers);
                 }
 
+                if (amount <= 0) {
+                    betAction(player, action, pot, activePlayers);
+                }
                 // If player attempts to bet more than they have
                 if (!(player.getBalance() >= amount)) {
                     betAction(player, action, pot, activePlayers);
@@ -69,7 +72,7 @@ public enum Action {
                     player.setStatus(Action.ALL_IN);
                 }
                 pot.updatePot(amount);
-                pot.updateAmountPerPlayer(amount);
+                pot.updateAmountPerPlayer(player, amount);
                 player.addBet(amount);
             }
             case FOLD -> {
@@ -79,12 +82,14 @@ public enum Action {
             case CALL -> {
                 int amountToCall = pot.getAmountPerPlayer() - player.getCurrentBet();
                 player.addBet(amountToCall);
+                pot.updateAmountPerPlayer(player, amountToCall);
             }
             case ALL_IN -> {
                 player.addBet(player.getBalance());
                 player.setStatus(Action.ALL_IN);
             }
             default -> {
+                // do nothing and continue to next player if applicable
             }
         }
     }
