@@ -7,7 +7,6 @@ import xyz.marshalldev.PlayerHandler.Player;
 
 import java.util.*;
 
-@Data
 public class Game {
 
     private Deck deck;                                              // Deck of cards
@@ -39,9 +38,11 @@ public class Game {
         this.bigBlindIndex = bigBlindIndex;
         this.lastBetIndex = littleBlindIndex;
 
-        deck = new Deck();
-        pot = new Pot();
         createPlayers();
+
+        deck = new Deck();
+        pot = new Pot(players);
+
         startGame();
     }
 
@@ -99,10 +100,6 @@ public class Game {
                         Action.betAction(player, action, pot, activePlayers);
                     }
                 } else if (activePlayers == 1) {
-                    // player wins hand
-                    // give pot
-                    // increment blinds and button
-                    // reset hands
                     handEnded(player, pot);
                     return;
                 }
@@ -118,8 +115,8 @@ public class Game {
 
         if (communityCards.size() == 5) {
             List<Player> winners = new ArrayList<>();
-
-            // handEnded()
+            // find winner
+            handEnded(players.get(1), pot);
         }
     }
 
@@ -144,8 +141,21 @@ public class Game {
         pot.reset();
     }
 
-    // TODO add some sort of map to keep track of active players and their position to make it easier for incrementation
     private void incrementPositions() {
-
+        int playersSize = players.size();
+        // check if i+1 = players.size, if so, wrap
+        if (bigBlindIndex+1 > playersSize) {
+            /* utilize hashmap instead of directly assigning
+            because we will modify the hashmap when a player is out of the pot */
+            bigBlindIndex = players.get(0).getSeat();
+        } else if (littleBlindIndex+1 > playersSize) {
+            littleBlindIndex = players.get(0).getSeat();
+        } else if (buttonIndex+1 > playersSize) {
+            buttonIndex = players.get(0).getSeat();
+        } else {
+            bigBlindIndex = players.get(bigBlindIndex+1).getSeat();
+            littleBlindIndex = players.get(littleBlindIndex+1).getSeat();
+            buttonIndex = players.get(buttonIndex+1).getSeat();
+        }
     }
 }
