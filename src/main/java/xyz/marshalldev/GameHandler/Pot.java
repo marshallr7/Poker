@@ -9,20 +9,25 @@ import java.util.Map;
 public class Pot {
 
     @Getter
-    int value;                                      // Total pot value
+    int value;                                          // Total pot value
     @Getter
-    int amountPerPlayer;                            // Amount each player has bet
+    int amountPerPlayer;                                // Amount each player has bet
 
-    Map<Player, Integer> bets = new HashMap<>();    // Player - Bet amount, used to manage payouts
+    Map<Integer, Integer> bets = new HashMap<>();       // Seat - Bet amount, used to manage payouts
 
-    // Constructor to fill bets with players, 0
+    public Pot(Map<Integer, Player> players) {
+        for (Player player : players.values()) {
+            bets.putIfAbsent(player.getSeat(), 0);
+        }
+    }
 
     void updatePot(int amount) {
         this.value = amount + this.value;
     }
 
-    void updateAmountPerPlayer(int amount) {
+    void updateAmountPerPlayer(Player player, int amount) {
         this.amountPerPlayer = this.amountPerPlayer + amount;
+        bets.replace(player.getSeat(), bets.get(player.getSeat()) + amount);
     }
 
     private void payPot(Player player) {
@@ -33,6 +38,7 @@ public class Pot {
     public void reset() {
         this.value = 0;
         this.amountPerPlayer = 0;
-        bets.values().stream().forEach(i -> System.out.println(i));
+        // reset bets hashmap
+        bets.replaceAll((k,v) -> v = 0);
     }
 }
